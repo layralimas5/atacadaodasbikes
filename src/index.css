@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+/*
+  Design tokens — Atacadão das Bikes Camburi
+  Visual premium e esportivo: tinta quase preta + verde-lima elétrico de performance.
+  Layra: quando o cliente definir a marca, ajuste estes tokens (e o design-guide.md do MazyOS).
+*/
+@theme {
+  /* Tinta / superfícies escuras */
+  --color-ink-950: #08090c;
+  --color-ink-900: #0d0f14;
+  --color-ink-800: #14171f;
+  --color-ink-700: #1d2230;
+
+  /* Neutros claros */
+  --color-sand-50: #fafaf9;
+  --color-sand-100: #f4f4f1;
+  --color-sand-200: #e8e8e3;
+
+  /* Acento da marca — dourado suave (substitui o verde-neon).
+     Todos os tons "lime-*" usados no site são redefinidos aqui para não
+     vazar verde. Para ajustar o tom, mexa só nestes valores. */
+  --color-lime-50: #fbf7ea;
+  --color-lime-300: #ecd58a;
+  --color-lime-400: #e3c25c;
+  --color-lime-500: #d2ad44;
+  --color-lime-600: #9d7c1c;
+  --color-lime-700: #7a5f17;
+
+  /* Suporte / confiança */
+  --color-brand-600: #0f5fff;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+
+  --shadow-soft: 0 1px 2px rgba(8, 9, 12, 0.06), 0 8px 24px -8px rgba(8, 9, 12, 0.12);
+  --shadow-lift: 0 2px 4px rgba(8, 9, 12, 0.08), 0 20px 48px -12px rgba(8, 9, 12, 0.22);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-sand-200);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-ink-900);
+    background: var(--color-sand-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Foco visível e acessível em qualquer elemento interativo */
+  :focus-visible {
+    outline: 2px solid var(--color-ink-900);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Ken Burns: zoom/pan lento e contínuo em imagens de destaque. */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.12) translate(-1.5%, -1.5%);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 14s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns {
+    animation: none;
+  }
+}

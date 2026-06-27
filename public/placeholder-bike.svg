@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Imagem de bicicleta indisponível">
+  <rect width="800" height="800" fill="#0d0f14"/>
+  <g fill="none" stroke="#e3c25c" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <circle cx="250" cy="500" r="120"/>
+    <circle cx="550" cy="500" r="120"/>
+    <path d="M250 500 L360 320 L540 320"/>
+    <path d="M360 320 L470 500 L550 500"/>
+    <path d="M250 500 L470 500"/>
+    <path d="M360 320 L330 270 L300 270"/>
+    <path d="M540 320 L580 260"/>
+  </g>
+  <text x="400" y="700" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="34" fill="#f4f4f1" letter-spacing="1">ATACADÃO DAS BIKES</text>
+</svg>

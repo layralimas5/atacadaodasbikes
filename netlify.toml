@@ -1,0 +1,32 @@
+# Configuração de deploy na Netlify — Atacadão das Bikes Camburi
+# (projeto Vite + React, SPA com React Router)
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA: qualquer rota cai no index.html (React Router resolve no cliente).
+# Necessário pra /catalogo, /produto/:id e /admin funcionarem em link direto.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Cache agressivo nos assets versionados (hash no nome) e leve no resto.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
