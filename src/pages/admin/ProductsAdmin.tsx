@@ -50,7 +50,7 @@ export function ProductsAdmin() {
           </p>
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {products.map((p) => (
             <article
               key={p.id}
@@ -60,7 +60,7 @@ export function ProductsAdmin() {
                 <SmartImage
                   src={p.image}
                   alt={p.name}
-                  className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
                 />
                 <span className="absolute left-2 top-2 rounded-full bg-ink-950/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur">
                   {catName(p.category)}
