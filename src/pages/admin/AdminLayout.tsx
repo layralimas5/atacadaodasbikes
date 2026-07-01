@@ -5,6 +5,10 @@ import {
   Package,
   Boxes,
   Receipt,
+  Contact,
+  Users,
+  Bot,
+  MessagesSquare,
   Settings,
   LogOut,
   Bike,
@@ -20,7 +24,12 @@ const NAV = [
   { to: '/admin/produtos', label: 'Produtos', icon: Package, end: false },
   { to: '/admin/estoque', label: 'Estoque', icon: Boxes, end: false },
   { to: '/admin/vendas', label: 'Vendas', icon: Receipt, end: false },
-  { to: '/admin/conteudo', label: 'Conteúdo do site', icon: Settings, end: false },
+  { to: '/admin/clientes', label: 'Clientes', icon: Contact, end: false },
+  { to: '/admin/crm', label: 'CRM', icon: Users, end: false },
+  { to: '/admin/bot-site', label: 'Bot do site', icon: MessagesSquare, end: false },
+  { to: '/admin/bot', label: 'Bot WhatsApp', icon: Bot, end: false },
+  // Item "API" oculto do menu — a página continua acessível por /admin/api.
+  { to: '/admin/config', label: 'Configurações', icon: Settings, end: false },
 ]
 
 export function AdminLayout() {

@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Segredos e ambiente (NUNCA versionar) — chaves de API ficam aqui
+.env
+.env.*
+!.env.example
+
+# Netlify CLI local
+.netlify
+
 # Backups locais (não vão pro deploy/repo)
 _backup
 

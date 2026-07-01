@@ -1,8 +1,8 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
-import { X } from 'lucide-react'
+import { X, Upload, ImageOff } from 'lucide-react'
 import type { CategorySlug, Product } from '@/lib/types'
-import { CATEGORIES, PLACEHOLDER_IMAGE } from '@/data/seed'
+import { CATEGORIES } from '@/data/seed'
 import { SmartImage } from '@/components/ui/SmartImage'
 import { buttonClass } from '@/components/ui/button-styles'
 
@@ -35,12 +35,36 @@ export function ProductForm({
   onSave: (draft: ProductDraft) => void
 }) {
   const [draft, setDraft] = useState<ProductDraft>(initial ? { ...initial } : EMPTY)
+  const [imageError, setImageError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const set = <K extends keyof ProductDraft>(key: K, value: ProductDraft[K]) =>
     setDraft((d) => ({ ...d, [key]: value }))
 
   const setSpec = (key: keyof NonNullable<ProductDraft['specs']>, value: string) =>
     setDraft((d) => ({ ...d, specs: { ...d.specs, [key]: value } }))
+
+  const MAX_IMAGE_BYTES = 3 * 1024 * 1024 // 3 MB
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImageError(null)
+
+    if (!file.type.startsWith('image/')) {
+      setImageError('Selecione um arquivo de imagem.')
+      return
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setImageError('Imagem muito grande. Use uma de até 3 MB.')
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onload = () => set('image', String(reader.result))
+    reader.onerror = () => setImageError('Não foi possível ler a imagem.')
+    reader.readAsDataURL(file)
+  }
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
@@ -169,25 +193,64 @@ export function ProductForm({
           </div>
 
           <div>
-            <label className={label} htmlFor="pf-image">
-              URL da imagem
-            </label>
+            <p className={label}>Foto do produto</p>
             <div className="mt-1.5 flex gap-3">
-              <input
-                id="pf-image"
-                value={draft.image}
-                onChange={(e) => set('image', e.target.value)}
-                className={field}
-                placeholder="https://..."
-              />
-              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-sand-100">
-                <SmartImage
-                  src={draft.image || PLACEHOLDER_IMAGE}
-                  alt="Prévia"
-                  className="h-full w-full object-cover"
+              <div className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-xl border border-ink-900/12 bg-sand-100">
+                {draft.image ? (
+                  <SmartImage
+                    src={draft.image}
+                    alt="Prévia"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <ImageOff size={22} className="text-ink-700/30" />
+                )}
+              </div>
+
+              <div className="flex flex-1 flex-col justify-center gap-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFile}
+                  className="hidden"
+                  aria-label="Enviar foto do produto"
                 />
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className={buttonClass('outline', 'sm')}
+                  >
+                    <Upload size={15} /> {draft.image ? 'Trocar foto' : 'Enviar foto'}
+                  </button>
+                  {draft.image && (
+                    <button
+                      type="button"
+                      onClick={() => set('image', '')}
+                      className="rounded-xl px-3 py-1.5 text-sm font-medium text-ink-700/70 hover:bg-ink-900/5 hover:text-red-600"
+                    >
+                      Remover
+                    </button>
+                  )}
+                </div>
+                <p className="text-xs text-ink-700/50">PNG, JPG ou WEBP — até 3 MB.</p>
               </div>
             </div>
+            {imageError && <p className="mt-1.5 text-xs font-medium text-red-600">{imageError}</p>}
+
+            <details className="mt-2">
+              <summary className="cursor-pointer text-xs font-medium text-ink-700/60 hover:text-ink-950">
+                Ou usar uma URL de imagem
+              </summary>
+              <input
+                id="pf-image"
+                value={draft.image.startsWith('data:') ? '' : draft.image}
+                onChange={(e) => set('image', e.target.value)}
+                className={`mt-1.5 ${field}`}
+                placeholder="https://..."
+              />
+            </details>
           </div>
 
           <div>

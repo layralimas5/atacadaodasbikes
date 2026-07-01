@@ -8,6 +8,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Funções serverless do atendente de IA (chat do site + webhook do WhatsApp).
+# A chave da IA fica nas variáveis de ambiente da Netlify, nunca no código.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # SPA: qualquer rota cai no index.html (React Router resolve no cliente).
 # Necessário pra /catalogo, /produto/:id e /admin funcionarem em link direto.
 [[redirects]]

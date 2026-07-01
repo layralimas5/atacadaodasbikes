@@ -10,7 +10,12 @@ import { Dashboard } from '@/pages/admin/Dashboard'
 import { ProductsAdmin } from '@/pages/admin/ProductsAdmin'
 import { StockAdmin } from '@/pages/admin/StockAdmin'
 import { SalesAdmin } from '@/pages/admin/SalesAdmin'
-import { ContentAdmin } from '@/pages/admin/ContentAdmin'
+import { CustomersAdmin } from '@/pages/admin/CustomersAdmin'
+import { CrmAdmin } from '@/pages/admin/CrmAdmin'
+import { BotWhatsApp } from '@/pages/admin/BotWhatsApp'
+import { BotSite } from '@/pages/admin/BotSite'
+import { ApiAdmin } from '@/pages/admin/ApiAdmin'
+import { SettingsAdmin } from '@/pages/admin/SettingsAdmin'
 
 export default function App() {
   return (
@@ -31,7 +36,12 @@ export default function App() {
               <Route path="produtos" element={<ProductsAdmin />} />
               <Route path="estoque" element={<StockAdmin />} />
               <Route path="vendas" element={<SalesAdmin />} />
-              <Route path="conteudo" element={<ContentAdmin />} />
+              <Route path="clientes" element={<CustomersAdmin />} />
+              <Route path="crm" element={<CrmAdmin />} />
+              <Route path="bot-site" element={<BotSite />} />
+              <Route path="bot" element={<BotWhatsApp />} />
+              <Route path="api" element={<ApiAdmin />} />
+              <Route path="config" element={<SettingsAdmin />} />
             </Route>
           </Routes>
         </BrowserRouter>

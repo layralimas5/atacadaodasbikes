@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { CartDrawer } from '@/components/cart/CartDrawer'
-import { WhatsAppFab } from '@/components/layout/WhatsAppFab'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 
 /** Sobe ao topo em troca de rota; rola até a âncora quando há hash. */
 function ScrollManager() {
@@ -31,7 +31,7 @@ export function StoreLayout() {
       </main>
       <Footer />
       <CartDrawer />
-      <WhatsAppFab />
+      <ChatWidget />
     </div>
   )
 }
